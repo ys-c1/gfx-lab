@@ -1,0 +1,23 @@
+atlas demo: area-tiered scaling vs manual proportional scaling
+tier ratios (largest area first): 0.50 0.67 0.83 1.00
+
+width=128 tiles=24
+  unscaled: shelf packing at original sizes
+    used=105504 shelves=15 height=1080 bin=138240 waste=23.68% occupancy=76.32%
+  tiered : area tiers, largest scaled hardest
+    tiers=4 used=39519 shelves=10 height=419 bin=53632 waste=26.31% occupancy=73.69% time=0.948 us
+  manual : one uniform ratio for every tile
+    ratio=0.6120 used=39675 shelves=8 height=408 bin=52224 waste=24.03% occupancy=75.97% time=0.099 us
+  tiered vs manual: waste +2.29 pp, occupancy -2.29 pp, time +855.0%
+  placements: tiered=24 manual=24 of 24
+
+width=512 tiles=24
+  unscaled: shelf packing at original sizes
+    used=105504 shelves=3 height=336 bin=172032 waste=38.67% occupancy=61.33%
+  tiered : area tiers, largest scaled hardest
+    tiers=4 used=39519 shelves=2 height=103 bin=52736 waste=25.06% occupancy=74.94% time=0.961 us
+  manual : one uniform ratio for every tile
+    ratio=0.6120 used=39675 shelves=2 height=138 bin=70656 waste=43.85% occupancy=56.15% time=0.102 us
+  tiered vs manual: waste -18.79 pp, occupancy +18.79 pp, time +843.9%
+  placements: tiered=24 manual=24 of 24
+
