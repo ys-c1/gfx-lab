@@ -8,6 +8,6 @@
 | mip | C11 | demo.ppm | 盒式金字塔与纹理采样 |
 | atlas | C11 | demo.txt | 序列图集货架打包 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
-| cull | C11 | demo.txt | 视口剔除与排序 |
+| cull | C11 | demo.txt | 视口剔除：暴力遍历对照 + BVH 两层（构建/递归剪枝） |
 
 每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
