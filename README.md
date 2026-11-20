@@ -9,5 +9,6 @@
 | atlas | C11 | demo.txt | 序列图集货架打包 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
 | cull | C11 | demo.txt | 视口剔除与排序 |
+| shadow | C11 | demo.pgm / demo_jump_*.csv | 2D 阴影与时序稳定（平滑→斜率修正→跳变统计） |
 
 每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
