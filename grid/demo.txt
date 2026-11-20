@@ -1,0 +1,19 @@
+uniform grid broad-phase benchmark (AABB pair query)
+candidates = AABB tests performed; err = candidates - actual pairs
+
+==== n=10000  world=1000  avg_box=6.0 ====
+grid: cell_w=19.995 dims=51x50 pick=0.018ms build=0.547ms
+  grid : cells_visited=2499       candidates=51307        pairs=7092       err=44215      time=1.095ms
+  brute: cells_visited=-          candidates=49995000     pairs=7092       err=49987908   time=119.594ms
+  bvh  : cells_visited=-          candidates=316486       pairs=7092       err=309394     time=8.296ms
+  match: grid==brute 1, bvh==brute 1 (mismatch 0); grid table 142136 B (14.21 B/obj), bvh 1000000 B (100.00 B/obj)
+  incremental: moves=500 rebuilds=1 updates=1000 update_time=0.094ms (0.09us/op), match=1
+
+==== n=100000  world=3000  avg_box=6.0 ====
+grid: cell_w=18.973 dims=159x159 pick=0.304ms build=5.021ms
+  grid : cells_visited=25068      candidates=530734       pairs=80192      err=450542     time=16.232ms
+  brute: cells_visited=-          candidates=4999950000   pairs=80192      err=4999869808 time=12208.826ms
+  bvh  : cells_visited=-          candidates=3906415      pairs=80192      err=3826223    time=140.845ms
+  match: grid==brute 1, bvh==brute 1 (mismatch 0); grid table 1439572 B (14.40 B/obj), bvh 10000000 B (100.00 B/obj)
+  incremental: moves=500 rebuilds=1 updates=1000 update_time=0.202ms (0.20us/op), match=1
+
