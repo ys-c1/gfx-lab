@@ -20,7 +20,14 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
-clean:
-	rm -rf build demo.pgm demo.gpak
+bench: build/bench
+	./build/bench
 
-.PHONY: all test demo clean
+build/bench: $(SRC) bench.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) bench.c -lm -o $@
+
+clean:
+	rm -rf build demo.pgm demo.gpak demo_traj.csv
+
+.PHONY: all test demo bench clean

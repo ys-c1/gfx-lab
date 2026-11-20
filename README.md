@@ -9,5 +9,8 @@
 | atlas | C11 | demo.txt | 序列图集货架打包 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
 | cull | C11 | demo.txt | 视口剔除与排序 |
+| shadow | C11 | demo.pgm / demo_traj.csv | 阴影图、光源插值与增量重算 |
+| asset | C11 | demo.gpak | 资源包读写 |
 
 每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
+shadow 另有基准：`make -C shadow bench`（见 `shadow/README.md`）。

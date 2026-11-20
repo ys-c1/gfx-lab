@@ -2,3 +2,5 @@ build/
 *.o
 demo.ppm
 demo.wav
+demo.pgm
+demo_traj.csv
