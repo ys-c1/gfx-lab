@@ -20,7 +20,14 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
-clean:
-	rm -rf build demo.ppm demo.wav
+study: build/study
+	./build/study | tee align_study.txt
 
-.PHONY: all test demo clean
+build/study: $(SRC) align_study.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) align_study.c -lm -o $@
+
+clean:
+	rm -rf build demo.ppm demo.wav align_study.txt
+
+.PHONY: all test demo study clean
