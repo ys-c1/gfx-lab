@@ -1,4 +1,5 @@
 build/
 *.o
 demo.ppm
+demo_*.ppm
 demo.wav
