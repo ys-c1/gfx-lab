@@ -1,0 +1,18 @@
+# atlas page table
+page_width=64 page_height=64 pages=3 rects=12
+# load order: pages ascending 0..2; within a page, rects ascending by rect index
+page 0: used_px=2112 shelves=3 occupancy=0.5156
+  rect 0: 8x8 @ (0,0)
+  rect 1: 12x16 @ (8,0)
+  rect 2: 16x24 @ (20,0)
+  rect 3: 20x8 @ (36,0)
+  rect 4: 24x16 @ (0,24)
+  rect 5: 28x24 @ (24,24)
+  rect 6: 32x8 @ (0,48)
+page 1: used_px=2656 shelves=4 occupancy=0.6484
+  rect 7: 36x16 @ (0,0)
+  rect 8: 40x24 @ (0,16)
+  rect 9: 44x8 @ (0,40)
+  rect 10: 48x16 @ (0,48)
+page 2: used_px=1248 shelves=1 occupancy=0.3047
+  rect 11: 52x24 @ (0,0)
