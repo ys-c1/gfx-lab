@@ -49,3 +49,35 @@ int mx_write_wav(const MixBus *b, const char *path) {
     fclose(f);
     return 0;
 }
+
+int mx_duck(float *bg, const float *main, int frames, int channels, float rate,
+            const MxDuck *cfg, float *depth_db) {
+    if (!cfg || !cfg->enabled) return MX_DUCK_OK;  /* 旁通：不写 bg，逐样本相同 */
+    if (!bg || !main || frames <= 0 || channels <= 0 || !(rate > 0.0f))
+        return MX_DUCK_EARG;
+    if (!isfinite(cfg->level) || cfg->level <= 0.0f) return MX_DUCK_ELEVEL;
+    if (!isfinite(cfg->gain) || cfg->gain < 0.0f) return MX_DUCK_EGAIN;
+    if (!isfinite(cfg->release_ms) || cfg->release_ms < 0.0f) return MX_DUCK_ERELEASE;
+
+    const float coef = cfg->release_ms > 0.0f
+        ? expf(-1.0f / (cfg->release_ms * 0.001f * rate)) : 0.0f;
+    const float cut = 1.0f - cfg->gain;
+    float env = 0.0f, gmin = 1.0f;
+    for (int i = 0; i < frames; ++i) {
+        float m = 0.0f;
+        for (int c = 0; c < channels; ++c) {
+            float v = fabsf(main[(size_t)i * channels + c]);
+            if (v > m) m = v;
+        }
+        env = m > env * coef ? m : env * coef;
+        float x = env / cfg->level;
+        if (x > 1.0f) x = 1.0f;
+        float g = 1.0f - cut * x;
+        if (g < gmin) gmin = g;
+        for (int c = 0; c < channels; ++c)
+            bg[(size_t)i * channels + c] *= g;
+    }
+    if (depth_db)
+        *depth_db = gmin > 0.0f ? -20.0f * log10f(gmin) : INFINITY;
+    return MX_DUCK_OK;
+}
