@@ -20,7 +20,17 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
-clean:
-	rm -rf build demo.ppm demo.wav
+nearcheck: build/nearcheck
+	./build/nearcheck
 
-.PHONY: all test demo clean
+build/nearcheck: $(SRC) nearcheck.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) nearcheck.c -lm -o $@
+
+handcheck:
+	python3 -I handcheck.py
+
+clean:
+	rm -rf build demo.ppm demo32.ppm demo256.ppm off.ppm on.ppm
+
+.PHONY: all test demo nearcheck handcheck clean
