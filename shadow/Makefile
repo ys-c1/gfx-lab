@@ -21,6 +21,6 @@ build/demo: $(SRC) demo.c $(HDR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
 clean:
-	rm -rf build demo.pgm demo.gpak
+	rm -rf build demo.pgm demo_ref.pgm demo.gpak
 
 .PHONY: all test demo clean
