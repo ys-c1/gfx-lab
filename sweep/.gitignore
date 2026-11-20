@@ -1,0 +1,5 @@
+build/
+.tmp/
+*.o
+demo.txt
+active_*.csv
