@@ -13,8 +13,18 @@ build/test: $(SRC) test.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) test.c -lm -o $@
 
+sanitize: build/test-san
+	./build/test-san
+
+build/test-san: $(SRC) test.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) -O1 -g -Wall -Wextra -std=c11 \
+		-fsanitize=address,undefined $(SRC) test.c -lm -o $@
+
 demo: build/demo
 	./build/demo
+
+bench: demo
 
 build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
@@ -23,4 +33,4 @@ build/demo: $(SRC) demo.c $(HDR)
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test sanitize demo bench clean
