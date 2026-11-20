@@ -6,7 +6,7 @@
 |---|---|---|---|
 | raster | C11 | demo.ppm | 三角形光栅化与 z 缓冲 |
 | mip | C11 | demo.ppm | 盒式金字塔与纹理采样 |
-| atlas | C11 | demo.txt | 序列图集货架打包 |
+| atlas | C11 | demo.txt | 四朝向（0/90/180/270）货架打包，择优回填与浪费率上界 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
 | cull | C11 | demo.txt | 视口剔除与排序 |
 

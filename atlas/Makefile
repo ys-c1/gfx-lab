@@ -16,6 +16,9 @@ build/test: $(SRC) test.c $(HDR)
 demo: build/demo
 	./build/demo
 
+refcheck:
+	python3 -I tools/refcheck.py
+
 build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
@@ -23,4 +26,4 @@ build/demo: $(SRC) demo.c $(HDR)
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test demo refcheck clean
