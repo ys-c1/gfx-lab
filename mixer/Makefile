@@ -20,7 +20,15 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
+bench: build/benchmark
+	./build/benchmark
+	python3 ref_limit.py build
+
+build/benchmark: $(SRC) benchmark.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) benchmark.c -lm -o $@
+
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test demo bench clean
