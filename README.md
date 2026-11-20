@@ -8,6 +8,6 @@
 | mip | C11 | demo.ppm | 盒式金字塔与纹理采样 |
 | atlas | C11 | demo.txt | 序列图集货架打包 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
-| cull | C11 | demo.txt | 视口剔除与排序 |
+| cull | C11 | demo.txt | 视口剔除、同层按权重稳定排序与权重表导出 |
 
-每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
+每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。cull 另有排序基准（1 万 / 10 万两档，对照稳定排序）：`make -C cull bench`。
