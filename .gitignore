@@ -1,4 +1,6 @@
 build/
 *.o
 demo.ppm
+demo-atlas*.ppm
 demo.wav
+.tmp/
