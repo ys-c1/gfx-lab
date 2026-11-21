@@ -2,3 +2,5 @@ build/
 *.o
 demo.ppm
 demo.wav
+tile/demo_*.ppm
+tile/demo_*.csv
