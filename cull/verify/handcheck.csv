@@ -1,0 +1,49 @@
+# Hand-computed cull trajectory for the small scene (cull/bench.c, name=small)
+#
+# boxes (id: x,y,w,h -> x-span / y-span):
+#   b0: (0,0,8,8)      spans x[0,8]      y[0,8]
+#   b1: (0,15,8,8)     spans x[0,8]      y[15,23]
+#   b2: (27,0,8,8)     spans x[27,35]    y[0,8]
+#   b3: (35,0,8,8)     spans x[35,43]    y[0,8]
+#   b4: (80,80,8,8)    spans x[80,88]    y[80,88]
+#   b5: (-25,-25,8,8) spans x[-25,-17]  y[-25,-17]
+#
+# views: v0=(x0,y0,w30,h30) -> v1=(x40,y0,w30,h30)
+#   v(t): vx = 0 + (40-0)*t = 40t, vy=0, vw=vh=30
+#   window x-range = [40t, 40t+30], y-range = [0,30]
+#
+# overlap rule (identical to cull.c overlaps()):
+#   overlap = NOT (bx+bw < vx OR bx > vx+vw OR by+bh < vy OR by > vy+vh)
+#   equality counts as overlap; the scene is chosen so no equality occurs
+#   on the moving edge (all comparisons are strict, see work below).
+#
+# candidate set: union(v0,v1) = (0,0,70,30), window x[0,70] y[0,30]
+#   b0 in  b1 in  b2 in  b3 (35..43) in  b4 (80..88) out  b5 (negative) out
+#   => candidates = {0,1,2,3}, count 4
+#
+# per-frame hand work (all candidate y-ranges lie inside y[0,30]):
+#   t=0    vx=0  x[0,30]:   b0 in b1 in b2(27<=30) in b3(35>30) out  => {0,1,2}
+#   t=.25  vx=10 x[10,40]:  b0 right=8 <10 out; b1 out;
+#                            b2(27..35) in; b3(35<=40) in             => {2,3}
+#   t=.5   vx=20 x[20,50]:  b2 in b3 in                               => {2,3}
+#   t=.75  vx=30 x[30,60]:  b2(right 35, left 27, neither past) in;
+#                            b3 in                                    => {2,3}
+#   t=1    vx=40 x[40,70]:  b2 right=35 <40 out;
+#                            b3(35..43, 43>=40) in                    => {3}
+#
+# frame-to-frame change classification (sorted-set diff vs previous frame):
+#   frame0: initial build: added=3 removed=0 unchanged=0
+#   frame1: add {3}, remove {0,1}:  added=1 removed=2 unchanged=1
+#   frame2: no change:               0/0/2
+#   frame3: no change:               0/0/2
+#   frame4: remove {2}:              added=0 removed=1 unchanged=1
+#
+# rebuilt=0 on every row: the incremental path never scans all n=6 boxes,
+# only the 4 candidates are re-tested. Full-rebuild mode must produce the
+# same visible ids with rebuilt=1 (checked by test.c and check_traj.py).
+frame,t,vx,vy,vw,vh,candidates,rebuilt,added,removed,unchanged,visible_count,visible_ids
+0,0.000000,0.000000,0.000000,30.000000,30.000000,4,0,3,0,0,3,0|1|2
+1,0.250000,10.000000,0.000000,30.000000,30.000000,4,0,1,2,1,2,2|3
+2,0.500000,20.000000,0.000000,30.000000,30.000000,4,0,0,0,2,2,2|3
+3,0.750000,30.000000,0.000000,30.000000,30.000000,4,0,0,0,2,2,2|3
+4,1.000000,40.000000,0.000000,30.000000,30.000000,4,0,0,1,1,1,3

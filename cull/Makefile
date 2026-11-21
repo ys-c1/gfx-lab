@@ -20,7 +20,17 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
+bench: build/bench
+	./build/bench
+
+build/bench: $(SRC) bench.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) bench.c -lm -o $@
+
+verify: bench
+	python3 verify/check_traj.py build/benchout verify/handcheck.csv
+
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test demo bench verify clean
