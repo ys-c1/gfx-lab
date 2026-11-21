@@ -5,9 +5,13 @@
 | 模块 | 语言 | 产物 | 内容 |
 |---|---|---|---|
 | raster | C11 | demo.ppm | 三角形光栅化与 z 缓冲 |
-| mip | C11 | demo.ppm | 盒式金字塔与纹理采样 |
+| mip | C11 | demo.ppm | 盒式金字塔、纹理采样与按层缩略图预览 |
 | atlas | C11 | demo.txt | 序列图集货架打包 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
 | cull | C11 | demo.txt | 视口剔除与排序 |
 
 每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
+mip 另有基准：`make -C mip bench`，在每层约 1 千 / 1 万次采样预算下报告缩略图尺寸、
+层号、预览尺寸、采样次数、对参考实现的误差与耗时，并单独统计层间差异。
+mip 的预览分两段：`mip_thumb_level()` 按层号单独采样缩略图，`mip_sheet_assemble()`
+再按层拼成预览图；默认规则（整层直取、每像素 1 次采样、无间距）与既有输出逐字节一致。
