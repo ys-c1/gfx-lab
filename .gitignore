@@ -2,3 +2,8 @@ build/
 *.o
 demo.ppm
 demo.wav
+
+shadow/demo_multi.pgm
+shadow/demo_order.csv
+shadow/bench.txt
+shadow/bench_order_*.csv
