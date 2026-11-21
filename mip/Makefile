@@ -16,6 +16,13 @@ build/test: $(SRC) test.c $(HDR)
 demo: build/demo
 	./build/demo
 
+bench: build/bench
+	./build/bench
+
+build/bench: $(SRC) bench.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) bench.c -lm -o $@
+
 build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
@@ -23,4 +30,4 @@ build/demo: $(SRC) demo.c $(HDR)
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test demo bench clean
