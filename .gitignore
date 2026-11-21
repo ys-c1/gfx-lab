@@ -2,3 +2,6 @@ build/
 *.o
 demo.ppm
 demo.wav
+demo_layers.csv
+bench_layers.csv
+bench.txt
