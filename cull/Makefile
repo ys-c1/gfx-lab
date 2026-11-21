@@ -21,6 +21,6 @@ build/demo: $(SRC) demo.c $(HDR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
 clean:
-	rm -rf build demo.ppm demo.wav
+	rm -rf build demo.ppm demo.wav jitter_trajectory_*.csv
 
 .PHONY: all test demo clean
