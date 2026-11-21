@@ -1,0 +1,14 @@
+# kernel length K vs softening width (odd kernel lengths)
+# soft_width_px = K - 1 (full penumbra band in output pixels)
+kernel_K soft_width_px
+1 0.0
+3 2.0
+5 4.0
+7 6.0
+9 8.0
+11 10.0
+13 12.0
+15 14.0
+17 16.0
+19 18.0
+21 20.0
