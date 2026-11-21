@@ -11,3 +11,5 @@
 | cull | C11 | demo.txt | 视口剔除与排序 |
 
 每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
+
+mip 模块另有半纹素中心修正的两档倍率验证（越界编号、修正统计、纸笔推导对照）：`make -C mip verify`。

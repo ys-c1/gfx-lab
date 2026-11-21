@@ -13,6 +13,13 @@ build/test: $(SRC) test.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) test.c -lm -o $@
 
+verify: build/verify
+	./build/verify
+
+build/verify: $(SRC) verify.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) verify.c -lm -o $@
+
 demo: build/demo
 	./build/demo
 
@@ -23,4 +30,4 @@ build/demo: $(SRC) demo.c $(HDR)
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test verify demo clean
