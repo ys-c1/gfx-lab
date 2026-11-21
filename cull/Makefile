@@ -3,6 +3,7 @@ CFLAGS ?= -O2 -Wall -Wextra -std=c11
 CPPFLAGS ?= -Isrc
 SRC := $(wildcard src/*.c)
 HDR := $(wildcard src/*.h)
+BENCH_OUT ?= ../artifacts/cull
 
 all: test
 
@@ -20,7 +21,14 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
+bench: build/bench
+	./build/bench $(BENCH_OUT)
+
+build/bench: $(SRC) bench.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) bench.c -lm -o $@
+
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test demo bench clean
