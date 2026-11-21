@@ -57,6 +57,43 @@ int rt_triangle(RTarget *t, const RTri *tri) {
     return written;
 }
 
+int rt_sprites(RTarget *t, const RSprite *sp, int n, double focal, int *bad) {
+    if (bad) *bad = -1;
+    if (!t || n < 0 || (n > 0 && !sp)) return -1;
+    if (focal < 0.0 || !isfinite(focal)) return -1;
+    for (int i = 0; i < n; ++i) {
+        const RSprite *s = &sp[i];
+        if (!(s->size > 0.0)) { if (bad) *bad = i; return -1; }
+        if (focal > 0.0 && !isfinite(s->z)) { if (bad) *bad = i; return -1; }
+        double ss = focal > 0.0 ? s->size * focal / s->z : s->size;
+        if (!isfinite(ss) || ss <= 0.0) { if (bad) *bad = i; return -1; }
+        double x0 = s->x - ss * 0.5, x1 = s->x + ss * 0.5;
+        double y0 = s->y - ss * 0.5, y1 = s->y + ss * 0.5;
+        if (x1 <= 0.0 || y1 <= 0.0 || x0 >= t->w || y0 >= t->h) continue;
+        int px0 = x0 > 0.0 ? (int)floor(x0) : 0;
+        int py0 = y0 > 0.0 ? (int)floor(y0) : 0;
+        int px1 = x1 < t->w ? (int)ceil(x1) - 1 : t->w - 1;
+        int py1 = y1 < t->h ? (int)ceil(y1) - 1 : t->h - 1;
+        for (int py = py0; py <= py1; ++py) {
+            double oy = fmin(y1, py + 1.0) - fmax(y0, (double)py);
+            if (oy <= 0.0) continue;
+            for (int px = px0; px <= px1; ++px) {
+                double ox = fmin(x1, px + 1.0) - fmax(x0, (double)px);
+                if (ox <= 0.0) continue;
+                double c = ox * oy;
+                size_t idx = (size_t)py * (size_t)t->w + (size_t)px;
+                if (!((float)s->z < t->z[idx])) continue;
+                t->z[idx] = (float)s->z;
+                for (int k = 0; k < 3; ++k) {
+                    double v = c * s->rgb[k] + (1.0 - c) * t->rgb[idx * 3 + k];
+                    t->rgb[idx * 3 + k] = (unsigned char)(v + 0.5);
+                }
+            }
+        }
+    }
+    return n;
+}
+
 int rt_write_ppm(const RTarget *t, const char *path) {
     if (!t || !path) return -1;
     FILE *f = fopen(path, "wb");
