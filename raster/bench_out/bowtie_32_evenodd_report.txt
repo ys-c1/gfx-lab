@@ -1,0 +1,19 @@
+raster polygon fill report
+grid: 32 x 32
+verts: 4  fan triangles: 2
+mode: ON  rule: even-odd  z: 0.500
+phase1 coverage ms: 0.0105
+phase2 shading  ms: 0.0013
+total           ms: 0.0118
+covered pixels (EO union NZ): 288
+even-odd fill pixels     : 288
+nonzero fill pixels      : 288
+overflow pixels          : 0
+
+per fan-triangle coverage:
+  tri  0 (verts 0,1,2): 300 px
+  tri  1 (verts 0,2,3): 300 px
+
+rule table (parity, winding) -> [even-odd, nonzero, selected] color count:
+  parity=3 winding=1  EO=1 NZ=1 sel=1 rgb=(30,90,220) count=144
+  parity=1 winding=-1  EO=1 NZ=1 sel=1 rgb=(30,90,220) count=144
