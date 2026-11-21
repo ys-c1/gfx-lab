@@ -21,6 +21,6 @@ build/demo: $(SRC) demo.c $(HDR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
 clean:
-	rm -rf build demo.ppm demo.wav
+	rm -rf build demo.ppm demo.wav demo_deess.wav demo_sibilance.csv
 
 .PHONY: all test demo clean
