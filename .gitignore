@@ -2,3 +2,8 @@ build/
 *.o
 demo.ppm
 demo.wav
+halftone/demo-64.ppm
+halftone/demo-512.ppm
+halftone/demo-matrix.txt
+halftone/demo-matrix.pgm
+halftone/build/
