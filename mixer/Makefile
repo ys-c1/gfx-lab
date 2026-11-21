@@ -20,7 +20,14 @@ build/demo: $(SRC) demo.c $(HDR)
 	@mkdir -p build
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) demo.c -lm -o $@
 
+metrics: build/metrics
+	./build/metrics
+
+build/metrics: $(SRC) metrics.c $(HDR)
+	@mkdir -p build
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(SRC) metrics.c -lm -o $@
+
 clean:
 	rm -rf build demo.ppm demo.wav
 
-.PHONY: all test demo clean
+.PHONY: all test demo metrics clean

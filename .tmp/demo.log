@@ -1,0 +1,5 @@
+cc -Isrc -O2 -Wall -Wextra -std=c11 src/mixer.c demo.c -lm -o build/demo
+./build/demo
+mixed 480 frames
+demo_exit=0
+58b039d445c07ceb0af3948f1fd153fc  demo.wav
