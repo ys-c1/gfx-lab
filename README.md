@@ -9,5 +9,7 @@
 | atlas | C11 | demo.txt | 序列图集货架打包 |
 | mixer | C11 | demo.wav | 总线混音与增益 |
 | cull | C11 | demo.txt | 视口剔除与排序 |
+| objtab | C11 | demo.txt | 对象表的分段扩缩容（开放寻址哈希表） |
 
 每个模块：`make -C <模块> test`，演示：`make -C <模块> demo`。
+`objtab` 另带基准：`make -C objtab bench`（1 万 / 10 万两档，整表重建 vs 两段增量迁移）。
